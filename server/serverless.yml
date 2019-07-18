@@ -41,13 +41,7 @@ provider:
       Resource: "arn:aws:s3:::${self:provider.environment.S3}/*"
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          method: get
-          path: hello
-          cors: true
+  ${file(./endpoints/todo/todo.endpoints.yml)}
 
 resources:
   Resources:

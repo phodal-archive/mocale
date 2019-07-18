@@ -1,0 +1,7 @@
+getTodo:
+  handler: endpoints/todo/read.list
+  events:
+    - http:
+        method: get
+        path: api/todo
+        cors: true
