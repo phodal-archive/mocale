@@ -1,7 +1,11 @@
 import { CalendarModel } from "../model/calendar.model";
 import { VALIDATE_ERROR } from "../model/common.model";
+import { Length } from "class-validator";
 
 export class CalendarEntity {
+  // @ts-ignore
+  @Length(2) title: string;
+
   constructor(model: CalendarModel) {
 
   }
