@@ -1,8 +1,8 @@
-export interface CalendarModel {
+export interface TodoModel {
   id?: string;
-  user: string;
   title: string;
   content: string;
+  completed: boolean;
   createdAt: string;
   modifiedAt: string;
 }
