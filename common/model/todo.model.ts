@@ -3,6 +3,6 @@ export interface TodoModel {
   title: string;
   content: string;
   completed: boolean;
-  createdAt: string;
-  modifiedAt: string;
+  createdAt?: number;
+  modifiedAt?: number;
 }

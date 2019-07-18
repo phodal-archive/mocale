@@ -5,7 +5,7 @@ export class TodoApp {
 
   }
 
-  createTodo() {
-    this.todoService.createTodo();
+  createTodo(body) {
+    return this.todoService.createTodo(body)
   }
 }

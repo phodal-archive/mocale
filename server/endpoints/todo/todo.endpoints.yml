@@ -5,3 +5,11 @@ getTodo:
         method: get
         path: api/todo
         cors: true
+
+createTodo:
+  handler: endpoints/todo/create.create
+  events:
+    - http:
+        method: put
+        path: api/todo
+        cors: true
