@@ -1,5 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyHandler, Callback, Context } from 'aws-lambda';
 import 'source-map-support/register';
+import { DocumentClient } from "aws-sdk/lib/dynamodb/document_client";
+
+import ScanInput = DocumentClient.ScanInput;
 
 const AWS = require('aws-sdk');
 
@@ -9,8 +12,9 @@ const tableName = process.env.DYNAMODB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export const list: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
-  const params = {
-    TableName: tableName
+  const params: ScanInput = {
+    TableName: tableName,
+    ProjectionExpression: "id, title, content, createdAt, modifiedAt, completed, repeatDetail",
   };
 
   docClient.scan(params, (error, data) => {
