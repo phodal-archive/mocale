@@ -5,6 +5,11 @@ getTodo:
         method: get
         path: api/todo
         cors: true
+        authorizer:
+          name: auth
+          resultTtlInSeconds: 300
+          identitySource: method.request.header.Authorization
+          type: token
 
 createTodo:
   handler: endpoints/todo/create.create
@@ -13,3 +18,8 @@ createTodo:
         method: put
         path: api/todo
         cors: true
+        authorizer:
+          name: auth
+          resultTtlInSeconds: 300
+          identitySource: method.request.header.Authorization
+          type: token

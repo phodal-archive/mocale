@@ -1,0 +1,2 @@
+auth:
+  handler: endpoints/auth.authorize

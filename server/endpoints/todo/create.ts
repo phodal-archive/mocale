@@ -15,7 +15,7 @@ const tableName = process.env.DYNAMODB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
-  let token = _event.headers['token'];
+  let token = _event.headers['Authorization'];
   if (!token) {
     return callback(null, {statusCode: 401, body: JSON.stringify({type: 'NOT Token'})});
   }
