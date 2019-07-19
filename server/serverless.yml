@@ -15,6 +15,16 @@ custom:
     certificateName: '*.wdsm.io'
     createRoute53Record: true
     endpointType: 'regional'
+  webpack:
+    packager: 'yarn'
+    keepOutputDirectory: true
+    includeModules:
+      forceExclude:
+        - aws-sdk
+        - aws-lambda
+    packagerOptions:
+      scripts:
+        - yarn autoclean --force
 
 provider:
   name: aws

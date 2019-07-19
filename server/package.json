@@ -7,14 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "shortid": "^2.2.14",
-    "source-map-support": "^0.5.10"
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.30",
     "@types/node": "^10.12.18",
+    "aws-sdk": "^2.495.0",
     "serverless-domain-manager": "^3.2.6",
     "serverless-webpack": "^5.2.0",
+    "source-map-support": "^0.5.10",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0"
