@@ -1,17 +1,14 @@
-import { VALIDATE_ERROR } from "../model/common.model";
-import { Length } from "class-validator";
+import { ErrorModel, VALIDATE_ERROR } from "../model/common.model";
+import { IsBoolean, Length } from "class-validator";
 import { TodoModel } from "../model/todo.model";
-
-export class ErrorModel {
-  type: string;
-  error: string;
-}
 
 export class TodoEntity {
   // @ts-ignore
   @Length(2) title: string;
-  content: string;
-  completed: boolean;
+  // @ts-ignore
+  @Length(2) content: string;
+  // @ts-ignore
+  @IsBoolean completed: boolean;
 
   constructor(model: TodoModel) {
     this.title = model.title;
@@ -27,17 +24,18 @@ export class TodoEntity {
     }
   }
 
-  static validate(model: TodoModel): TodoEntity | ErrorModel {
+  static create(model: TodoModel): TodoEntity | ErrorModel {
     console.log(model);
     if (!model) {
       return {
         type: VALIDATE_ERROR.EMPTY,
-        error: '长度要求'
+        error: '不能为空'
       }
     }
     if (model.title && model.title.length < 2) {
       return {
         type: VALIDATE_ERROR.MIN_LENGTH,
+        field: 'title',
         error: '长度要求'
       }
     }

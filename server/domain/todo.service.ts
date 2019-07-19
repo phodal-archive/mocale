@@ -1,12 +1,13 @@
-import { ErrorModel, TodoEntity } from "../../common/entity/todo.entity";
+import { TodoEntity } from "../../common/entity/todo.entity";
 import { TodoModel } from "../../common/model/todo.model";
+import { ErrorModel } from "../../common/model/common.model";
 
 export class TodoService {
   constructor() {
   }
 
   createTodo(model): ErrorModel | TodoModel {
-    let todoEntity = TodoEntity.validate(model);
+    let todoEntity = TodoEntity.create(model);
     if (todoEntity['type']) {
       return todoEntity;
     } else {

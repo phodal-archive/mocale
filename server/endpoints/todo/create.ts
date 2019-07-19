@@ -7,7 +7,7 @@ const AWS = require('aws-sdk');
 import { TodoApp } from "../../application/todo.app";
 import { TodoService } from "../../domain/todo.service";
 import { TodoModel } from "../../../common/model/todo.model";
-import { ErrorModel } from "../../../common/entity/todo.entity";
+import { ErrorModel } from '../../../common/model/common.model';
 
 AWS.config.setPromisesDependency(Promise);
 
@@ -15,11 +15,12 @@ const tableName = process.env.DYNAMODB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
+  if (!_event.headers['token']) {
+    return callback(null, {statusCode: 401, body: JSON.stringify({type: 'NOT Token'})});
+  }
   let body;
-  console.log(_event);
   try {
     body = JSON.parse(_event.body);
-    console.log(body);
   } catch (error) {
     return callback(null, {statusCode: 400, body: JSON.stringify(error)});
   }
@@ -31,8 +32,8 @@ export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _co
   if (todo instanceof ErrorModel || todo ['type']) {
     callback(null, {
       statusCode: 404,
-      headers: {'Content-Type': 'text/plain'},
-      body: 'couldn\'t validate the form item.',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(todo),
     });
     return;
   }
@@ -53,8 +54,8 @@ export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _co
       console.error(error);
       callback(null, {
         statusCode: error.statusCode || 501,
-        headers: {'Content-Type': 'text/plain'},
-        body: 'couldn\'t validate the form item.',
+        headers: {'Content-Type': 'application/json'},
+        body: 'couldn\'t create the form item.',
       });
     }
 

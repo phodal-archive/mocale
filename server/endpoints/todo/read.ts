@@ -19,7 +19,7 @@ export const list: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _cont
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: {'Content-Type': 'text/plain'},
-        body: 'couldn\'t validate the form item.',
+        body: 'couldn\'t create the form item.',
       });
     }
 
