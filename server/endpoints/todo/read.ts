@@ -14,7 +14,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 export const list: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
   const params: ScanInput = {
     TableName: tableName,
-    ProjectionExpression: "id, title, content, createdAt, modifiedAt, completed, repeatDetail",
+    ProjectionExpression: "id, title, content, createdAt, modifiedAt, completed, repeat, repeatDetail",
   };
 
   docClient.scan(params, (error, data) => {
