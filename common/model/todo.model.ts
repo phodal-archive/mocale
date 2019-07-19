@@ -16,8 +16,8 @@ export interface TodoModel {
   completed: boolean;
   createdAt?: number;
   modifiedAt?: number;
-  startDate?: string;
-  endDate?: string;
-  repeat?: REPEAT_TYPE;
-  repeatDetail?: string;
+  startDate: string;
+  endDate: string;
+  repeat: REPEAT_TYPE;
+  repeatDetail: string;
 }
