@@ -65,7 +65,7 @@ export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _co
       headers: {
         "Access-Control-Allow-Origin": "*" // Required for CORS support to work
       },
-      body: JSON.stringify(params.Item.id),
+      body: JSON.stringify({id: params.Item.id}),
     });
   });
 };
