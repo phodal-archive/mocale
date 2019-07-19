@@ -5,10 +5,10 @@ export class TodoEntity {
   title: string;
   content: string;
   completed: boolean;
-  endDate: string;
-  repeatDetail: string;
-  startDate: string;
-  repeat: REPEAT_TYPE;
+  endDate: string = '';
+  repeatDetail: string = '';
+  startDate: string = '';
+  repeat: REPEAT_TYPE = REPEAT_TYPE.ONE_TIME;
 
   constructor(model: TodoModel) {
     this.title = model.title;
@@ -24,7 +24,7 @@ export class TodoEntity {
     return {
       title: this.title,
       endDate: this.endDate,
-      repeat: REPEAT_TYPE.ONE_TIME,
+      repeat: this.repeat,
       repeatDetail: this.repeatDetail,
       startDate: this.startDate,
       content: this.content,
