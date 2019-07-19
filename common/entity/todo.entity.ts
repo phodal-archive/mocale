@@ -1,14 +1,10 @@
 import { ErrorModel, VALIDATE_ERROR } from "../model/common.model";
-import { IsBoolean, Length } from "class-validator";
 import { TodoModel } from "../model/todo.model";
 
 export class TodoEntity {
-  // @ts-ignore
-  @Length(2) title: string;
-  // @ts-ignore
-  @Length(2) content: string;
-  // @ts-ignore
-  @IsBoolean completed: boolean;
+  title: string;
+  content: string;
+  completed: boolean;
 
   constructor(model: TodoModel) {
     this.title = model.title;

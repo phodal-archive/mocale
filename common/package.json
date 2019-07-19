@@ -9,6 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "class-validator": "^0.9.1"
+
   }
 }
