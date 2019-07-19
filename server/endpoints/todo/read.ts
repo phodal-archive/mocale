@@ -14,16 +14,19 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 export const list: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
   const params: ScanInput = {
     TableName: tableName,
-    ProjectionExpression: "id, title, content, createdAt, modifiedAt, completed, repeat, repeatDetail",
+    ProjectionExpression: "id, title, content, createdAt, modifiedAt, completed, #RepeatAttr, repeatDetail",
+    ExpressionAttributeNames: {
+      '#RepeatAttr': 'repeat'
+    },
   };
 
   docClient.scan(params, (error, data) => {
     if (error) {
       console.error(error);
       callback(null, {
-        statusCode: error.statusCode || 501,
-        headers: {'Content-Type': 'text/plain'},
-        body: 'couldn\'t create the form item.',
+        statusCode: error.statusCode || 500,
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(error)
       });
     }
 
@@ -32,7 +35,7 @@ export const list: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _cont
       headers: {
         "Access-Control-Allow-Origin": "*" // Required for CORS support to work
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(data)
     });
   });
 };
