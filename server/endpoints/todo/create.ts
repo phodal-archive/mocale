@@ -15,7 +15,8 @@ const tableName = process.env.DYNAMODB_TABLE;
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _context: Context, callback: Callback) => {
-  if (!_event.headers['token']) {
+  let token = _event.headers['token'];
+  if (!token) {
     return callback(null, {statusCode: 401, body: JSON.stringify({type: 'NOT Token'})});
   }
   let body;
@@ -46,16 +47,16 @@ export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _co
 
   const params = {
     TableName: tableName,
-    Item: todo
+    Item: Object.assign({token: token}, todo)
   };
 
   docClient.put(params, (error, _data) => {
     if (error) {
-      console.error(error);
+      console.error(params, error);
       callback(null, {
         statusCode: error.statusCode || 501,
         headers: {'Content-Type': 'application/json'},
-        body: 'couldn\'t create the form item.',
+        body: JSON.stringify(error)
       });
     }
 
@@ -64,7 +65,7 @@ export const create: APIGatewayProxyHandler = (_event: APIGatewayProxyEvent, _co
       headers: {
         "Access-Control-Allow-Origin": "*" // Required for CORS support to work
       },
-      body: JSON.stringify(params.Item),
+      body: JSON.stringify(params.Item.id),
     });
   });
 };

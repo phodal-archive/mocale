@@ -24,7 +24,7 @@ export class TodoEntity {
     return {
       title: this.title,
       endDate: this.endDate,
-      repeat: this.repeat,
+      repeat: this.repeat ? this.repeat : REPEAT_TYPE.ONE_TIME,
       repeatDetail: this.repeatDetail,
       startDate: this.startDate,
       content: this.content,
